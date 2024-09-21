@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-template"
+version = "0.1.0"
+authors = []
+description = "Template for python repositories"
+readme = "README.md"
+keywords = ["template", "python"]
+requires-python = ">=3.12"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/axioma-ai-labs/python-template"
+Documentation = ""
+
+[tool.mypy]
+# Paths to search for import modules, including stubs.
+mypy_path = ["stubs"]
+
+# Treats missing imports as errors.
+ignore_missing_imports = true
+
+# Runs type checking on all files, even those without type hints.
+check_untyped_defs = true
