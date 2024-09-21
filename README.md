@@ -1,4 +1,5 @@
 # Template for python repositories.
+[![Lint](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml)
 
 ## Table of Contents
 
