@@ -50,7 +50,7 @@ make lint    # Lint code
 
 ## Development
 
-### 1. Pyenv and Pipenv
+### Pyenv and Pipenv
 
 #### Overview
 
