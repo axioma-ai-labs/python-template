@@ -13,6 +13,11 @@ This project is a template for Python repositories. It includes a Makefile with 
 formatting, linting, and installing dependencies. It also includes a pre-configured Github Actions 
 workflow for CI/CD.
 
+Let the following note be in your project-specific Readme file:
+
+> [!NOTE]
+> This project uses the [python-template](https://github.com/axioma-ai-labs/python-template)
+
 ## Features
 
 ### 1. Pyenv and Pipenv
@@ -85,4 +90,12 @@ Alternatively, you can install the dependencies manually:
 
 ```
 pipenv install --dev
+```
+
+#### Setup Environment Variables
+
+You can use the provided `.env.example` file to setup the environment variables. 
+
+```
+cp .env.example .env
 ```
