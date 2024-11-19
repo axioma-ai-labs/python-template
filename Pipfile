@@ -7,6 +7,7 @@ name = "pypi"
 pydantic = "*"
 pydantic-settings = "*"
 setuptools = "*"
+loguru = "*"
 
 [dev-packages]
 mypy = "*"
