@@ -1,31 +1,108 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "python-template"
-version = "0.1.0"
+version = "0.0.0"
 authors = []
-description = "Template for python repositories"
+description = "Python Template"
 readme = "README.md"
-keywords = ["template", "python"]
-requires-python = ">=3.12"
+keywords = ["python", "template"]
+requires-python = ">=3.13"
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
 ]
 
 [project.urls]
-Homepage = "https://github.com/axioma-ai-labs/python-template"
-Documentation = ""
+Homepage = "https://github.com/axioma-ai-labs/neurobro-terminal-backend"
+Documentation = "https://github.com/axioma-ai-labs/neurobro-terminal-backend/blob/main/README.md"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "python-template"
+version = "0.0.0"
+description = "Python Template"
+authors = ["Dzmitry Hramyka <grom.dima.grom@gmail.com>"]
+package-mode = false  
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pydantic = "^2.10.5"
+pydantic-settings = "^2.7.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+isort = "^5.13.2"
+ruff = "^0.9.1"
+httpx = "^0.28.1"
+mypy = "^1.14.1"
+pytest-asyncio = "^0.25.2"
+
 
 [tool.mypy]
+python_version = "3.13"
+plugins = ["pydantic.mypy"]
 # Paths to search for import modules, including stubs.
 mypy_path = ["stubs"]
-
 # Treats missing imports as errors.
 ignore_missing_imports = true
-
 # Runs type checking on all files, even those without type hints.
 check_untyped_defs = true
+follow_imports = "silent"
+warn_redundant_casts = true
+no_implicit_reexport = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = [
+    "."
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+
+
+[tool.ruff]
+exclude = ["tests"]
+target-version = "py313"
+# Formatter
+line-length = 100
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+combine-as-imports = true
+
+
+[tool.isort]
+py_version = 312
+profile = "black"
+overwrite_in_place = "true"
+combine_as_imports = true
+lines_after_imports = 2
