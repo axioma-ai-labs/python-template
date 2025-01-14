@@ -1,5 +1,6 @@
-from src.core.config import settings
 from loguru import logger
+
+from src.core.config import settings
 
 
 # Configure loguru logger
