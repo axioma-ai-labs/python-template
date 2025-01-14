@@ -9,10 +9,11 @@ help:
 	@echo "  deps            Install all dependencies"
 	@echo "  format          Format source code"
 	@echo "  lint            Run lint checks"
+	@echo "  test            Run tests"
 
 .PHONY: deps
 deps:
-	pipenv install --dev
+	poetry install --with dev
 
 .PHONY: format
 format:	\
@@ -21,11 +22,11 @@ format:	\
 
 .PHONY: format-ruff
 format-ruff:
-	pipenv run ruff format --line-length 100 $(DIRS_PYTHON)
+	poetry run ruff format --line-length 100 $(DIRS_PYTHON)
 
 .PHONY: format-isort
 format-isort:
-	pipenv run isort --profile=black --line-length 100 $(DIRS_PYTHON)
+	poetry run isort --profile=black --line-length 100 $(DIRS_PYTHON)
 
 .PHONY: lint
 lint: \
@@ -35,15 +36,23 @@ lint: \
 
 .PHONY: lint-ruff
 lint-ruff:
-	pipenv run ruff check --line-length 100 $(DIRS_PYTHON)
+	poetry run ruff check --line-length 100 $(DIRS_PYTHON)
 
 .PHONY: lint-isort
 lint-isort:
-	pipenv run isort --profile=black --line-length 100 --check-only --diff $(DIRS_PYTHON)
+	poetry run isort --profile=black --line-length 100 --check-only --diff $(DIRS_PYTHON)
 
 .PHONY: lint-mypy
 lint-mypy:
-	pipenv run mypy --check-untyped-defs $(DIRS_PYTHON)
+	poetry run mypy --check-untyped-defs $(DIRS_PYTHON)
+
+.PHONY: test
+test:
+	poetry run pytest tests/ -v
+
+# .PHONY: dev
+# dev:
+# 	poetry run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 # .PHONY: jupyternotebook
 # jupyternotebook:

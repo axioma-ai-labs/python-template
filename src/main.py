@@ -1,4 +1,10 @@
+from loguru import logger
+
 from src.core.config import settings
+
+
+# Configure loguru logger
+logger.add("logs/debug.log", rotation="1 MB", retention="10 days", level="DEBUG")
 
 
 def main() -> None:
