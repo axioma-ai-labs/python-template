@@ -1,6 +1,6 @@
 # Template for python repositories.
 [![Lint](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml)
-[![Docker](https://github.com/axioma-ai-labs/python-template/actions/workflows/docker-build.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/docker-build.yml)
+[![Docker](https://github.com/axioma-ai-labs/python-template/actions/workflows/docker.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/docker.yml)
 
 ## Table of Contents
 
