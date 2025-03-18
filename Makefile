@@ -10,6 +10,8 @@ help:
 	@echo "  format          Format source code"
 	@echo "  lint            Run lint checks"
 	@echo "  test            Run tests"
+	@echo "  ci-test        Run tests with coverage"
+	@echo "  dev            Run development server"
 
 .PHONY: deps
 deps:
@@ -49,6 +51,14 @@ lint-mypy:
 .PHONY: test
 test:
 	poetry run pytest tests/ -v
+
+.PHONY: ci-test
+ci-test:
+	poetry run pytest --cov-report term-missing --cov-report lcov --cov=src tests/
+
+.PHONY: dev
+dev:
+	poetry run python -m src.main
 
 # .PHONY: dev
 # dev:

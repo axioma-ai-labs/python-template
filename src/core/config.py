@@ -1,5 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from src.core.defs import Environment
+
 
 class Settings(BaseSettings):
     """Settings for the autopvs1 CLI."""
@@ -10,11 +12,14 @@ class Settings(BaseSettings):
 
     # === General settings ===
 
-    #: Whether to enable debug mode
-    DEBUG: bool = False
+    #: Environment
+    ENVIRONMENT: Environment = Environment.PRODUCTION
 
     #: Project name
     PROJECT_NAME: str = ""
+
+    #: Project version
+    PROJECT_VERSION: str = "0.1.0"
 
 
 settings = Settings(_env_file=".env", _env_file_encoding="utf-8")  # type: ignore[call-arg]
