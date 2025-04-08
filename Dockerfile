@@ -3,7 +3,7 @@
 # =====================
 
 FROM python:3.13-slim
-WORKDIR /src
+WORKDIR /app
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
@@ -45,10 +45,10 @@ RUN poetry install --no-interaction --no-ansi --no-root
 # Runtime
 # ----------------------
 
-COPY . /src
+COPY . /app
 
-COPY entrypoint.sh /src/entrypoint.sh
-RUN chmod +x /src/entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Command to run the application
-ENTRYPOINT ["/src/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
