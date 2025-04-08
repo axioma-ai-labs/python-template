@@ -1,4 +1,4 @@
-DIRS_PYTHON := src
+DIRS_PYTHON := src tests
 
 .PHONY: help
 help:
