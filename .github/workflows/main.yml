@@ -1,4 +1,7 @@
-name: CI 
+name: CI
+
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 on:
   push:
@@ -49,5 +52,40 @@ jobs:
       - name: Lint source code
         run: make lint
 
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+         lfs: 'true'
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.0.1
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: cached-poetry-dependencies
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-python-3.13-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        run: poetry install
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
       - name: Run tests
         run: make ci-test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+             
