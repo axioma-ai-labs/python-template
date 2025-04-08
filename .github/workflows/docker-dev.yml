@@ -2,12 +2,16 @@ name: Docker Build for DEV
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/package-name
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/python-template
 
 on:
   push:
     branches:
       - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   build-dev:

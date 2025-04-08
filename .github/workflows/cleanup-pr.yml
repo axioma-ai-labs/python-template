@@ -1,5 +1,8 @@
 name: Cleanup PR Images
 
+env:
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/python-template
+
 on:
   pull_request:
     types: [ closed ]
@@ -17,4 +20,4 @@ jobs:
 
       - name: Delete PR Docker tag
         run: |
-          python .github/scripts/delete_docker_tag.py ${{ secrets.DOCKER_USERNAME }} package-name pr-${{ github.event.pull_request.number }}
+          python .github/scripts/delete_docker_tag.py ${{ env.IMAGE_NAME }} pr-${{ github.event.pull_request.number }}
