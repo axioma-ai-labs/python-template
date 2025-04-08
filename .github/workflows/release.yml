@@ -56,9 +56,8 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
           platforms: linux/amd64,linux/arm64
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.VERSION }}
+      - name: Publish draft release using GitHub CLI and Release Drafter
+        run: |
+          gh release publish "${{ env.VERSION }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
