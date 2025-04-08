@@ -7,10 +7,12 @@ env:
 on:
   push:
     branches: [ main ]
-    # Optionally, filter by commit message containing "hotfix".
+    paths-ignore:
+      - 'dev/**'
 
 jobs:
   hotfix:
+    if: github.ref != 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
