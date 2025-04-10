@@ -1,11 +1,12 @@
 module.exports = {
     preset: 'angular',
     branches: [
-      { name: 'main' },
-      { name: 'dev', channel: 'dev', prerelease: false }
+      'main',
+      'dev',
+      { name: 'hotfix/*', prerelease: false }
     ],
-    initialVersion: '0.1.0',
-    tagFormat: '${version}',
+    initialVersion: 'v0.0.0',
+    tagFormat: 'v${version}',
     releaseRules: [
       { type: 'major', release: 'patch' },
       { type: 'feat', release: 'minor' },
