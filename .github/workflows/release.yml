@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - '0.*'
+      - 'v0.*'
 
 env:
   REGISTRY: docker.io

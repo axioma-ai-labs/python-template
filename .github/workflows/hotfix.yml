@@ -3,9 +3,7 @@ name: Hotfix Release
 on:
   push:
     branches:
-      - main
-    tags:
-      - '0.*'
+      - 'hotfix/*'
 
 env:
   REGISTRY: docker.io
@@ -40,32 +38,32 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
 
-  cherry-pick:
-    if: contains(github.event.head_commit.message, 'hotfix:')
-    runs-on: ubuntu-latest
-    needs: semantic-release
-    permissions:
-      contents: write # to be able to push to the main branch
-      pull-requests: write # to be able to create a pull request
-    steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v4
-        with:
-          ref: main
+  # cherry-pick:
+  #   if: contains(github.event.head_commit.message, 'hotfix:')
+  #   runs-on: ubuntu-latest
+  #   needs: semantic-release
+  #   permissions:
+  #     contents: write # to be able to push to the main branch
+  #     pull-requests: write # to be able to create a pull request
+  #   steps:
+  #     - name: Checkout main branch
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: main
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+  #     - name: Configure Git
+  #       run: |
+  #         git config user.name "github-actions"
+  #         git config user.email "github-actions@github.com"
 
-      - name: Cherry-pick hotfix commit into dev
-        run: |
-          # Get the latest hotfix commit from main
-          HOTFIX_COMMIT=$(git log -1 --pretty=format:"%H")
-          # Fetch the dev branch so it is available locally
-          git fetch origin dev:dev
-          # Check out dev
-          git checkout dev
-          # Cherry-pick the commit from main to dev
-          git cherry-pick $HOTFIX_COMMIT
-          git push origin dev
+  #     - name: Cherry-pick hotfix commit into dev
+  #       run: |
+  #         # Get the latest hotfix commit from main
+  #         HOTFIX_COMMIT=$(git log -1 --pretty=format:"%H")
+  #         # Fetch the dev branch so it is available locally
+  #         git fetch origin dev:dev
+  #         # Check out dev
+  #         git checkout dev
+  #         # Cherry-pick the commit from main to dev
+  #         git cherry-pick $HOTFIX_COMMIT
+  #         git push origin dev
