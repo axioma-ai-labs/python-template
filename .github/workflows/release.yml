@@ -1,36 +1,44 @@
-name: Release Workflow
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '0.*'
 
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/python-template
 
-on:
-  push:
-    branches: [ main ]
-
 jobs:
-  release:
+  semantic-release:
+    if: "!startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+  docker-build:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    needs: semantic-release
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Bump minor version and get new tag
-        id: bump
-        run: |
-          NEW_VERSION=$(python3 .github/scripts/bump_version.py)
-          echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
-
-      - name: Create Git Tag and push
-        run: |
-          git tag ${{ env.VERSION }}
-          git push origin ${{ env.VERSION }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -44,7 +52,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Release image
+      - name: Extract version from tag
+        id: tag_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Build and push RELEASE image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -53,11 +65,4 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
             ${{ env.IMAGE_NAME }}:stable
-            ${{ env.IMAGE_NAME }}:latest
           platforms: linux/amd64,linux/arm64
-
-      - name: Publish draft release using GitHub CLI and Release Drafter
-        run: |
-          gh release publish "${{ env.VERSION }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
