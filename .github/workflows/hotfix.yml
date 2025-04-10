@@ -60,7 +60,12 @@ jobs:
 
       - name: Cherry-pick hotfix commit into dev
         run: |
+          # Get the latest hotfix commit from main
           HOTFIX_COMMIT=$(git log -1 --pretty=format:"%H")
+          # Fetch the dev branch so it is available locally
+          git fetch origin dev:dev
+          # Check out dev
           git checkout dev
+          # Cherry-pick the commit from main to dev
           git cherry-pick $HOTFIX_COMMIT
           git push origin dev
