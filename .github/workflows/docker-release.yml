@@ -1,9 +1,8 @@
 name: Docker Build and Push Release Image
 
 on:
-  push:
-    tags:
-      - '0.*'
+  release:
+    types: [published]
 
 env:
   REGISTRY: docker.io

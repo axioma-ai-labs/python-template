@@ -4,13 +4,14 @@ module.exports = {
       { name: 'main' },
       { name: 'dev', channel: 'dev', prerelease: false }
     ],
+    initialVersion: '0.1.0',
+    tagFormat: '${version}',
     releaseRules: [
-      { type: 'major', release: 'patch' }, 
+      { type: 'major', release: 'patch' },
       { type: 'feat', release: 'minor' },
       { type: 'fix', release: 'patch' },
       { type: 'perf', release: 'patch' }
     ],
-    tagFormat: '0.${version}',
     plugins: [
       '@semantic-release/commit-analyzer',
       '@semantic-release/release-notes-generator',
