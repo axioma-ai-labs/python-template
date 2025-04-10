@@ -42,6 +42,9 @@ jobs:
 
   rebase-dev:
     needs: semantic-release
+    permissions:
+      contents: write # to be able to push to the main branch
+      pull-requests: write # to be able to create a pull request
     runs-on: ubuntu-latest
     steps:
       - name: Checkout dev branch
