@@ -11,4 +11,3 @@ assignees: ''
 
 
 **Description:**
-- A clear and concise description of what the pull request is about.
