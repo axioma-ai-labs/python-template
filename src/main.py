@@ -1,10 +1,19 @@
+import logfire
 from loguru import logger
 
 from src.core.config import settings
 
 
-# Configure loguru logger
-logger.add("logs/debug.log", rotation="1 MB", retention="10 days", level="DEBUG")
+# configure logfire
+logfire.configure(
+    send_to_logfire="if-token-present",
+    token=settings.LOGFIRE_TOKEN,
+    service_name=settings.PROJECT_NAME,
+    environment=settings.ENVIRONMENT.value,
+)
+
+# configure loguru to send logs to logfire
+logger.configure(handlers=[logfire.loguru_handler()])
 
 
 def main() -> None:
@@ -14,7 +23,7 @@ def main() -> None:
     Returns:
         None
     """
-    print(settings.PROJECT_NAME)
+    logger.info("Hello, world!")
 
 
 if __name__ == "__main__":

@@ -3,5 +3,7 @@ from enum import Enum
 
 class Environment(Enum):
     DEVELOPMENT = "development"
-    PRODUCTION = "production"
+    STAGING = "staging"
     CI = "ci"
+    TEST = "test"
+    PRODUCTION = "production"

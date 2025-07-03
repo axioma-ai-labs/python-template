@@ -16,10 +16,13 @@ class Settings(BaseSettings):
     ENVIRONMENT: Environment = Environment.PRODUCTION
 
     #: Project name
-    PROJECT_NAME: str = ""
+    PROJECT_NAME: str = "your_project_name"
 
     #: Project version
     PROJECT_VERSION: str = "0.1.0"
+
+    #: Logging
+    LOGFIRE_TOKEN: str = ""
 
 
 settings = Settings(_env_file=".env", _env_file_encoding="utf-8")  # type: ignore[call-arg]
