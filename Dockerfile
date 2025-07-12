@@ -27,12 +27,6 @@ ENV PATH="/root/.local/bin:$PATH"
 # Configure Poetry
 RUN poetry config virtualenvs.create false
 
-# -------------------------
-# Create the logs directory
-# -------------------------
-
-RUN mkdir logs
-
 # ---------------------
 # Setup the environment
 # ---------------------
