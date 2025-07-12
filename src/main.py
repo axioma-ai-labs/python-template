@@ -1,19 +1,9 @@
-import logfire
 from loguru import logger
 
-from src.core.config import settings
+from src.core.logging import setup_logging
 
 
-# configure logfire
-logfire.configure(
-    send_to_logfire="if-token-present",
-    token=settings.LOGFIRE_TOKEN,
-    service_name=settings.PROJECT_NAME,
-    environment=settings.ENVIRONMENT.value,
-)
-
-# configure loguru to send logs to logfire
-logger.configure(handlers=[logfire.loguru_handler()])
+setup_logging(httpx=True, system_metrics=True)
 
 
 def main() -> None:

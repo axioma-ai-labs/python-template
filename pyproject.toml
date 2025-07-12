@@ -32,7 +32,7 @@ pydantic = "^2.10.5"
 pydantic-settings = "^2.7.1"
 loguru = "^0.7.3"
 httpx = "^0.28.1"
-logfire = "^3.22.0"
+logfire = {extras = ["fastapi", "httpx", "pydantic", "pydantic-ai", "system-metrics"], version = "^3.24.0"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
