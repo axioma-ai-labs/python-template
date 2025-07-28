@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   Lint:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,7 +55,7 @@ jobs:
         run: make lint
 
   Test:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -82,9 +82,9 @@ jobs:
           key: venv-${{ runner.os }}-python-3.13-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
-       run: |
-          poetry config virtualenvs.in-project true
-          poetry install --with dev
+        run: |
+            poetry config virtualenvs.in-project true
+            poetry install --with dev
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
 
       - name: Run tests

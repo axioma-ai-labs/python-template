@@ -20,14 +20,14 @@ concurrency:
 
 jobs:
   build-latest:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
-        # if: github.event_name == 'push' # Only log in on pushes
+        if: github.event_name == 'push' # Only log in on pushes
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
