@@ -3,7 +3,7 @@ from loguru import logger
 from src.core.logging import setup_logging
 
 
-setup_logging(httpx=True, system_metrics=True)
+setup_logging(httpx=True)
 
 
 def main() -> None:
