@@ -39,7 +39,7 @@ jobs:
           virtualenvs-in-project: true
 
       - name: Set up cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cached-poetry-dependencies
         with:
           path: .venv
@@ -75,7 +75,7 @@ jobs:
           virtualenvs-in-project: true
 
       - name: Set up cache
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         id: cached-poetry-dependencies
         with:
           path: .venv
